@@ -10,7 +10,7 @@ public class FlyStraightBehaviour: SteeringBehaviour {
 	public FlyStraightBehaviour( SteeringManager manager ):base(manager){
 		
 		this.tag = "FlyStraight";
-		this.steeringWeight = 5.0f;
+		this.steeringWeight = 1.0f;
 		seek = new SeekBehaviour (manager);
 	}
 

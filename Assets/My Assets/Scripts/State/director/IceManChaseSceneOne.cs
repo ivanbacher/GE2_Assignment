@@ -4,38 +4,39 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class IceManChaseSceneOne : State {
-
-	public GameObject maverick;
-	public GameObject iceman;
-	public GameObject mig;
+	
+	public Director director;
 
 	public IceManChaseSceneOne( GameObject entity ):base( entity ) {
-		
+
+		director = entity.GetComponent<Director>();
 	}
-	
+
 	public override void Enter() {
 
 
-		maverick = entity.GetComponent<Director> ().maverick;
-		iceman = entity.GetComponent<Director>().iceman;
-		mig = entity.GetComponent<Director>().mig;
+		director.maverick = entity.GetComponent<Director> ().maverick;
+		director.iceman = entity.GetComponent<Director>().iceman;
+		director.mig = entity.GetComponent<Director>().mig;
 
 		//maverick.GetComponent<StateManager>().SwitchState ( new IdealState (maverick) );
 		//iceman.GetComponent<StateManager>().SwitchState ( new IdealState (iceman) );
 		//mig.GetComponent<StateManager>().SwitchState ( new IdealStateEM (mig) );
 
-		iceman.GetComponent<SteeringManager> ().TurnAllOff ();
-		iceman.GetComponent<SteeringManager> ().target = mig;
-		iceman.GetComponent<SteeringManager>().TurnOn("Evade");
-		iceman.GetComponent<SteeringManager>().TurnOn("FlyLeftRight");
+		director.iceman.GetComponent<SteeringManager> ().TurnAllOff ();
+		director.iceman.GetComponent<SteeringManager> ().target = director.mig;
+		director.iceman.GetComponent<SteeringManager>().TurnOn("FlyStraight");
+		director.iceman.GetComponent<SteeringManager>().TurnOn("AvoidLockOn");
 
-		mig.GetComponent<SteeringManager> ().TurnAllOff ();
-		mig.GetComponent<SteeringManager> ().leader = iceman;
-		mig.GetComponent<SteeringManager>().TurnOn("OffsetPursue");
+		director.mig.GetComponent<SteeringManager> ().TurnAllOff ();
+		director.mig.GetComponent<SteeringManager> ().leader = director.iceman;
+		director.iceman.GetComponent<SteeringManager>().TurnOn("FlyStraight");
+		director.mig.GetComponent<SteeringManager>().TurnOn("OffsetPursue");
 
-		maverick.GetComponent<SteeringManager> ().TurnAllOff ();
-		maverick.GetComponent<SteeringManager> ().leader = mig;
-		maverick.GetComponent<SteeringManager>().TurnOn("OffsetPursue");
+		director.maverick.GetComponent<SteeringManager> ().TurnAllOff ();
+		director.maverick.GetComponent<SteeringManager> ().leader = director.mig;
+		director.iceman.GetComponent<SteeringManager>().TurnOn("FlyStraight");
+		director.maverick.GetComponent<SteeringManager>().TurnOn("OffsetPursue");
 	}
 	
 	public override void Exit() {

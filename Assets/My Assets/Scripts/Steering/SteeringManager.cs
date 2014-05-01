@@ -27,12 +27,12 @@ public class SteeringManager : MonoBehaviour {
 		this.force = Vector3.zero;
 		this.velocity = Vector3.zero;
 		
-		this.mass = 1.0f;
-		this.maxSpeed = 50.0f;
-		this.maxForce = 50.0f;
+		this.mass = 10.0f;
+		this.maxSpeed = 200.0f;
+		this.maxForce = 200.0f;
 
 		this.seekTarget = Vector3.zero;
-		this.offset = Vector3.zero;
+		this.offset = new Vector3( 0,0, 400);
 
 		this.leader = null;
 		this.target = null;
@@ -47,7 +47,7 @@ public class SteeringManager : MonoBehaviour {
 		this.behaviours.Add ( new PursueBehaviour (GetComponent<SteeringManager> ()) );
 		this.behaviours.Add ( new FleeBehaviour (GetComponent<SteeringManager> ()) );
 		this.behaviours.Add ( new EvadeBehaviour (GetComponent<SteeringManager> ()) );
-		this.behaviours.Add ( new FlyLeftRightBehaviour (GetComponent<SteeringManager> ()) );
+		this.behaviours.Add ( new AvoidLockOnBehaviour (GetComponent<SteeringManager> ()) );
 		this.behaviours.Add ( new ArriveBehaviour (GetComponent<SteeringManager> ()) );
 		this.behaviours.Add ( new OffsetPursue (GetComponent<SteeringManager> ()) );
 	}
@@ -103,7 +103,7 @@ public class SteeringManager : MonoBehaviour {
 		velocity += acceleration * Time.deltaTime;
 
 		float speed = velocity.magnitude;
-
+	
 		if (speed > maxSpeed) {
 			velocity.Normalize();
 			velocity *= maxSpeed;

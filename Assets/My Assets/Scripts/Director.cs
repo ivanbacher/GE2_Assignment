@@ -9,7 +9,7 @@ public class Director : MonoBehaviour {
 	public GameObject maverick;
 	public GameObject iceman;
 	public GameObject mig;
-		           
+			           
 	void Start(){
 
 		GetComponent<StateManager> ().SwitchState (new IceManChaseSceneOne ( gameObject ));
