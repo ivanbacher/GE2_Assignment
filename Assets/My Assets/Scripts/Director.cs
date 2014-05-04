@@ -17,20 +17,27 @@ public class Director : MonoBehaviour {
 	public int index;
 
 	public float timePassed;
+	private bool init = true;
 
 	void Start(){
 
+		iceman.AddComponent<SteeringManager> ();
+		mig.AddComponent<SteeringManager> ();
+		maverick.AddComponent<SteeringManager> ();
+
+		gameObject.AddComponent<StateManager> ();
+
+
+		this.timePassed = 0.0f;
 		this.index = 0;
 
-		scenes = new List<State> ();
-		scenes.Add (new IceManChaseSceneOne (gameObject));
-		scenes.Add (new IceManChaseSceneTwo (gameObject));
+		this.scenes = new List<State> ();
+		this.scenes.Add (new IceManChaseSceneOne (gameObject));
+		this.scenes.Add (new IceManChaseSceneTwo (gameObject));
 
-		timePassed = 0.0f;
 
-		//GetComponent<StateManager> ().SwitchState ( scenes[ index ]);
-		maverick.GetComponent<SteeringManager> ().TurnAllOff ();
-		maverick.GetComponent<SteeringManager> ().TurnOn("FlyStraight");
+		//maverick.GetComponent<SteeringManager> ().TurnAllOff ();
+		//maverick.GetComponent<SteeringManager> ().TurnOn("FlyStraight");
 		//maverick.GetComponent<SteeringManager> ().TurnOn("BankHardRight");
 	}
 
@@ -44,5 +51,12 @@ public class Director : MonoBehaviour {
 
 		timePassed += Time.deltaTime;
 
+		if (timePassed > 0.1f) {
+
+			if( init == true){
+				init = false;
+				gameObject.GetComponent<StateManager> ().SwitchState ( scenes[ index ]);
+			}
+		}
 	}
 }

@@ -17,8 +17,8 @@ public class SteeringManager : MonoBehaviour {
 	public List<SteeringBehaviour> behaviours;
 
 	public float mass = 1.0f;
-	public float maxSpeed = 300.0f;
-	public float maxForce = 400.0f;
+	public float maxSpeed = 200.0f;
+	public float maxForce = 200.0f;
 	
 	public SteeringManager(){
 

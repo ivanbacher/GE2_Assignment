@@ -9,8 +9,7 @@ public class AvoidLockOnRightLeftBehaviour: SteeringBehaviour {
 	private float radius;
 	private float dist;
 		
-	private Vector3 newPointOnSphere;
-	private Vector3 oldPointOnSphere;
+	private Vector3 pointOnSphere;
 
 	private GameObject sphere;
 	private SeekBehaviour seek;
@@ -28,9 +27,8 @@ public class AvoidLockOnRightLeftBehaviour: SteeringBehaviour {
 		this.radius = 200;
 		this.dist = 400;
 
-		this.newPointOnSphere = Vector3.zero;
-		this.oldPointOnSphere = Vector3.zero;
-	
+		this.pointOnSphere = Vector3.zero;
+			
 		this.sphere = new GameObject ();
 		this.sphere.name = "AvoidLockOnSphere";
 
@@ -46,25 +44,25 @@ public class AvoidLockOnRightLeftBehaviour: SteeringBehaviour {
 
 			timePassed = 0.0f;
 
-			newPointOnSphere = Vector3.zero;
+			pointOnSphere = Vector3.zero;
 
 			if(left){
 
-				newPointOnSphere.x = Random.Range (-0.8f,0.0f);
+				pointOnSphere.x = Random.Range (-0.8f,0.0f);
 				left = false;
 			} else {
-				newPointOnSphere.x = Random.Range (0.8f,0.0f);
+				pointOnSphere.x = Random.Range (0.8f,0.0f);
 				left = true;
 			}
 
-			newPointOnSphere.Normalize();
-			newPointOnSphere *= radius;
+			pointOnSphere.Normalize();
+			pointOnSphere *= radius;
 		}
 
 		sphere.transform.position = manager.transform.position + (Vector3.forward * dist);
 		sphere.transform.forward = Vector3.forward;
 
-		Vector3 targetPos = sphere.transform.TransformPoint (newPointOnSphere);
+		Vector3 targetPos = sphere.transform.TransformPoint (pointOnSphere);
 
 		Debug.DrawLine (manager.transform.position, targetPos, Color.red);
 		Debug.DrawLine (manager.transform.position, sphere.transform.position, Color.green);
