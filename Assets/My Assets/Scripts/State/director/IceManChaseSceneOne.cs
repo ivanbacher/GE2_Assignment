@@ -7,36 +7,26 @@ public class IceManChaseSceneOne : State {
 	
 	public Director director;
 
+	private int passed;
+
 	public IceManChaseSceneOne( GameObject entity ):base( entity ) {
 
 		director = entity.GetComponent<Director>();
+		passed = 0;
 	}
 
 	public override void Enter() {
 
-
-		director.maverick = entity.GetComponent<Director> ().maverick;
-		director.iceman = entity.GetComponent<Director>().iceman;
-		director.mig = entity.GetComponent<Director>().mig;
-
-		//maverick.GetComponent<StateManager>().SwitchState ( new IdealState (maverick) );
-		//iceman.GetComponent<StateManager>().SwitchState ( new IdealState (iceman) );
-		//mig.GetComponent<StateManager>().SwitchState ( new IdealStateEM (mig) );
-
 		director.iceman.GetComponent<SteeringManager> ().TurnAllOff ();
-		director.iceman.GetComponent<SteeringManager> ().target = director.mig;
 		director.iceman.GetComponent<SteeringManager>().TurnOn("FlyStraight");
-		director.iceman.GetComponent<SteeringManager>().TurnOn("AvoidLockOn");
 
 		director.mig.GetComponent<SteeringManager> ().TurnAllOff ();
-		director.mig.GetComponent<SteeringManager> ().leader = director.iceman;
-		director.iceman.GetComponent<SteeringManager>().TurnOn("FlyStraight");
-		director.mig.GetComponent<SteeringManager>().TurnOn("OffsetPursue");
+		director.mig.GetComponent<SteeringManager>().TurnOn("FlyStraight");
 
 		director.maverick.GetComponent<SteeringManager> ().TurnAllOff ();
-		director.maverick.GetComponent<SteeringManager> ().leader = director.mig;
-		director.iceman.GetComponent<SteeringManager>().TurnOn("FlyStraight");
-		director.maverick.GetComponent<SteeringManager>().TurnOn("OffsetPursue");
+		director.maverick.GetComponent<SteeringManager>().TurnOn("FlyStraight");
+
+		director.audioManager.PlayCurrent();
 	}
 	
 	public override void Exit() {
@@ -44,8 +34,75 @@ public class IceManChaseSceneOne : State {
 	}
 	
 	public override void Update() {
-		
-		
+
+		if (director.timePassed > 1.4f) {
+
+			if( passed == 0) {
+			
+				director.mig.GetComponent<SteeringManager> ().TurnAllOff ();
+				director.mig.GetComponent<SteeringManager> ().leader = director.iceman;
+				director.mig.GetComponent<SteeringManager>().TurnOn("Pursue");
+
+				director.maverick.GetComponent<SteeringManager> ().TurnAllOff ();
+				director.maverick.GetComponent<SteeringManager> ().leader = director.iceman;
+				director.maverick.GetComponent<SteeringManager>().TurnOn("Pursue");
+
+				passed ++;
+			}
+		}
+
+		if (director.timePassed > 5.0f) {
+
+			if(passed == 1){
+
+				director.iceman.GetComponent<SteeringManager>().TurnOn("AvoidLockOnRightLeft");
+
+				passed++;
+			}
+		}
+
+		//mav for shot mav
+		if (director.timePassed > 7.0f) {
+
+			if(passed == 2) {
+				director.maverick.GetComponent<SteeringManager> ().TurnAllOff ();
+				director.maverick.GetComponent<SteeringManager> ().leader = director.mig;
+				director.maverick.GetComponent<SteeringManager>().TurnOn("Pursue");
+
+				passed ++;
+			}
+		}
+
+		//shoot m gun from mig
+		if( director.timePassed > 18.0f ){
+
+			if(passed == 3) {
+
+				director.mig.GetComponent<MaGun>().shoot = true;
+
+				passed++;
+			}
+		}
+
+		if( director.timePassed > 20.0f ){
+			
+			if(passed == 4) {
+				
+				director.mig.GetComponent<MaGun>().shoot = false;
+							
+				passed++;
+			}
+		}
+
+		if( director.timePassed > 24.2f ){
+			
+			if(passed == 5) {
+				
+				director.nextScene();
+				
+				passed++;
+			}
+		}
 	}
 }
 

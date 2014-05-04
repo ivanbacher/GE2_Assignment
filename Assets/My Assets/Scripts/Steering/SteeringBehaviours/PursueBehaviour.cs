@@ -20,7 +20,7 @@ public class PursueBehaviour: SteeringBehaviour {
 		float dist = toTarget.magnitude;
 		float time = dist / manager.maxSpeed;
 
-		Vector3 targetPos = manager.leader.transform.position + (time * manager.leader.GetComponent<SteeringManager> ().velocity);
+		Vector3 targetPos = manager.leader.transform.position + (time * manager.leader.GetComponent<SteeringManager>().velocity);
 		return seek.Calc (targetPos);
 	}
 }

@@ -16,9 +16,9 @@ public class SteeringManager : MonoBehaviour {
 	
 	public List<SteeringBehaviour> behaviours;
 
-	public float mass;
-	public float maxSpeed;
-	public float maxForce;
+	public float mass = 1.0f;
+	public float maxSpeed = 300.0f;
+	public float maxForce = 400.0f;
 	
 	public SteeringManager(){
 
@@ -26,13 +26,9 @@ public class SteeringManager : MonoBehaviour {
 	
 		this.force = Vector3.zero;
 		this.velocity = Vector3.zero;
-		
-		this.mass = 10.0f;
-		this.maxSpeed = 200.0f;
-		this.maxForce = 200.0f;
 
 		this.seekTarget = Vector3.zero;
-		this.offset = new Vector3( 0,0, 400);
+		this.offset = new Vector3( 0,0,0);
 
 		this.leader = null;
 		this.target = null;
@@ -47,10 +43,13 @@ public class SteeringManager : MonoBehaviour {
 		this.behaviours.Add ( new PursueBehaviour (GetComponent<SteeringManager> ()) );
 		this.behaviours.Add ( new FleeBehaviour (GetComponent<SteeringManager> ()) );
 		this.behaviours.Add ( new EvadeBehaviour (GetComponent<SteeringManager> ()) );
-		this.behaviours.Add ( new AvoidLockOnBehaviour (GetComponent<SteeringManager> ()) );
+		this.behaviours.Add ( new AvoidLockOnRightLeftBehaviour (GetComponent<SteeringManager> ()) );
 		this.behaviours.Add ( new ArriveBehaviour (GetComponent<SteeringManager> ()) );
-		this.behaviours.Add ( new OffsetPursue (GetComponent<SteeringManager> ()) );
+		this.behaviours.Add ( new OffsetPursueBehaviour (GetComponent<SteeringManager> ()) );
+		this.behaviours.Add ( new FollowBehaviour (GetComponent<SteeringManager> ()) );
+		this.behaviours.Add ( new BankHardRightBehaviour (GetComponent<SteeringManager> ()) );
 	}
+
 
 	#region behaviour methods
 	public void TurnOn( string whichOneToTurnOn ) {
@@ -82,6 +81,18 @@ public class SteeringManager : MonoBehaviour {
 			b.isEnabled = false;
 		}
 	}
+
+	public void ChangeBehaviourWeight( string whichOne, float newWeight ) {
+
+		foreach( SteeringBehaviour b in behaviours ) {
+			
+			if( b.tag == whichOne ) {
+				
+				b.steeringWeight = newWeight;
+			}
+		}
+	}
+
 	#endregion
 	
 	// Update is called once per frame

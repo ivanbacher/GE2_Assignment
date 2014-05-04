@@ -1,52 +1,66 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
+using System.Collections.Generic;
+
 
 public class CameraManager : MonoBehaviour {
 
 	public Camera mainCamera;
-	public Camera frontCamera;
-	public Camera rearCamera;
-	public Camera wingCamera;
 
+	//maverick Cameras
+	public Camera maverickFrontCamera;
+	public Camera maverickRearCamera;
+	public Camera maverickWingCamera;
+
+	private List<Camera> allCams;
 
 	// Use this for initialization
 	void Start () {
 
-		mainCamera.enabled = true;
-		frontCamera.enabled = false;
-		rearCamera.enabled = false;
-		wingCamera.enabled = false;
+		allCams = new List<Camera> ();
+
+		allCams.Add (mainCamera);
+		allCams.Add (maverickFrontCamera);
+		allCams.Add (maverickRearCamera);
+		allCams.Add (maverickWingCamera);
+
+		disableAll ();
+		maverickFrontCamera.enabled = true;
+	}
+
+	private void disableAll() {
+
+		foreach (Camera cam in allCams) {
+			cam.enabled = false;
+		}
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
 		if (Input.GetKeyDown ("1")) {
+
+			disableAll();
 			mainCamera.enabled = true;
-			frontCamera.enabled = false;
-			rearCamera.enabled = false;
-			wingCamera.enabled = false;
 		}
 
 		if (Input.GetKeyDown ("2")) {
-			mainCamera.enabled = false;
-			frontCamera.enabled = true;
-			rearCamera.enabled = false;
-			wingCamera.enabled = false;
+
+			disableAll();
+			maverickFrontCamera.enabled = true;
 		}
 
 		if (Input.GetKeyDown ("3")) {
-			mainCamera.enabled = false;
-			frontCamera.enabled = false;
-			rearCamera.enabled = true;
-			wingCamera.enabled = false;
+
+			disableAll();
+			maverickRearCamera.enabled = true;
 		}
 
 		if (Input.GetKeyDown ("4")) {
-			mainCamera.enabled = false;
-			frontCamera.enabled = false;
-			rearCamera.enabled = false;
-			wingCamera.enabled = true;
+
+			disableAll();
+			maverickWingCamera.enabled = true;
 		}
 
 	}
