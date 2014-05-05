@@ -41,11 +41,11 @@ public class IceManChaseSceneOne : State {
 			
 				director.mig.GetComponent<SteeringManager> ().TurnAllOff ();
 				director.mig.GetComponent<SteeringManager> ().leader = director.iceman;
-				director.mig.GetComponent<SteeringManager>().TurnOn("Pursue");
+				director.mig.GetComponent<SteeringManager>().TurnOn("OffsetPursue");
 
 				director.maverick.GetComponent<SteeringManager> ().TurnAllOff ();
-				director.maverick.GetComponent<SteeringManager> ().leader = director.iceman;
-				director.maverick.GetComponent<SteeringManager>().TurnOn("Pursue");
+				director.maverick.GetComponent<SteeringManager> ().leader = director.mig;
+				director.maverick.GetComponent<SteeringManager>().TurnOn("OffsetPursue");
 
 				passed ++;
 			}
@@ -56,19 +56,22 @@ public class IceManChaseSceneOne : State {
 			if(passed == 1){
 
 				director.iceman.GetComponent<SteeringManager>().TurnOn("AvoidLockOnRightLeft");
-
 				passed++;
 			}
 		}
 
-		//mav for shot mav
-		if (director.timePassed > 7.0f) {
+		if (director.timePassed > 15.0f) {
 
 			if(passed == 2) {
-				director.maverick.GetComponent<SteeringManager> ().TurnAllOff ();
-				director.maverick.GetComponent<SteeringManager> ().leader = director.mig;
-				director.maverick.GetComponent<SteeringManager>().TurnOn("Pursue");
+				director.iceman.GetComponent<SteeringManager> ().TurnAllOff ();
+				director.iceman.GetComponent<SteeringManager>().TurnOn("FlyStraight");
 
+				director.mig.GetComponent<SteeringManager> ().TurnAllOff ();
+				director.mig.GetComponent<SteeringManager>().TurnOn("Pursue");
+
+				director.mig.GetComponent<SteeringManager> ().offset = new Vector3(0,0,-150);
+				director.maverick.GetComponent<SteeringManager> ().offset = new Vector3(0,0,-120);
+				
 				passed ++;
 			}
 		}
@@ -77,9 +80,7 @@ public class IceManChaseSceneOne : State {
 		if( director.timePassed > 18.0f ){
 
 			if(passed == 3) {
-
 				director.mig.GetComponent<MaGun>().shoot = true;
-
 				passed++;
 			}
 		}
@@ -87,9 +88,16 @@ public class IceManChaseSceneOne : State {
 		if( director.timePassed > 20.0f ){
 			
 			if(passed == 4) {
-				
+
+				director.iceman.GetComponent<SteeringManager>().TurnOn("AvoidLockOnRightLeft");
+
+				director.mig.GetComponent<SteeringManager> ().TurnAllOff ();
 				director.mig.GetComponent<MaGun>().shoot = false;
-							
+				director.mig.GetComponent<SteeringManager>().TurnOn("OffsetPursue");
+				
+				director.maverick.GetComponent<SteeringManager> ().TurnAllOff ();
+				director.maverick.GetComponent<SteeringManager>().TurnOn("OffsetPursue");
+
 				passed++;
 			}
 		}
@@ -97,9 +105,7 @@ public class IceManChaseSceneOne : State {
 		if( director.timePassed > 24.2f ){
 			
 			if(passed == 5) {
-				
 				director.nextScene();
-				
 				passed++;
 			}
 		}

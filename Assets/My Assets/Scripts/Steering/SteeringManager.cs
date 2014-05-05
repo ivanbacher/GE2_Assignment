@@ -34,10 +34,9 @@ public class SteeringManager : MonoBehaviour {
 		this.target = null;
 	}
 
-	void Start () {
-
+	void Awake(){
 		Debug.Log ( "SteeringManager added to: " + this.name );
-
+		
 		this.behaviours.Add ( new SeekBehaviour (GetComponent<SteeringManager> ()) );
 		this.behaviours.Add ( new FlyStraightBehaviour (GetComponent<SteeringManager> ()) );
 		this.behaviours.Add ( new PursueBehaviour (GetComponent<SteeringManager> ()) );
@@ -48,6 +47,11 @@ public class SteeringManager : MonoBehaviour {
 		this.behaviours.Add ( new OffsetPursueBehaviour (GetComponent<SteeringManager> ()) );
 		this.behaviours.Add ( new FollowBehaviour (GetComponent<SteeringManager> ()) );
 		this.behaviours.Add ( new BankHardRightBehaviour (GetComponent<SteeringManager> ()) );
+	}
+
+	void Start () {
+
+
 	}
 
 

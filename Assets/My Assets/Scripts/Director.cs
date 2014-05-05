@@ -34,11 +34,6 @@ public class Director : MonoBehaviour {
 		this.scenes = new List<State> ();
 		this.scenes.Add (new IceManChaseSceneOne (gameObject));
 		this.scenes.Add (new IceManChaseSceneTwo (gameObject));
-
-
-		//maverick.GetComponent<SteeringManager> ().TurnAllOff ();
-		//maverick.GetComponent<SteeringManager> ().TurnOn("FlyStraight");
-		//maverick.GetComponent<SteeringManager> ().TurnOn("BankHardRight");
 	}
 
 	public void nextScene() {
