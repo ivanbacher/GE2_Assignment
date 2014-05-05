@@ -34,6 +34,7 @@ public class Director : MonoBehaviour {
 		this.scenes = new List<State> ();
 		this.scenes.Add (new IceManChaseSceneOne (gameObject));
 		this.scenes.Add (new IceManChaseSceneTwo (gameObject));
+		this.scenes.Add (new FinalScene (gameObject));
 	}
 
 	public void nextScene() {

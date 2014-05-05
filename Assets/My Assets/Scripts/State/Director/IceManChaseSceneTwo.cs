@@ -111,8 +111,8 @@ public class IceManChaseSceneTwo : State {
 
 				director.maverick.GetComponent<MiLauncher>().ShootMissile(director.mig );
 				director.maverick.GetComponent<SteeringManager>().TurnAllOff();
-				director.iceman.GetComponent<SteeringManager>().maxForce = 100;
-				director.iceman.GetComponent<SteeringManager>().maxSpeed = 100;
+				director.iceman.GetComponent<SteeringManager>().maxForce = 10;
+				director.iceman.GetComponent<SteeringManager>().maxSpeed = 10;
 				director.maverick.GetComponent<SteeringManager>().leader = director.iceman;
 				director.maverick.GetComponent<SteeringManager> ().offset = new Vector3(100,-100,0);
 				director.maverick.GetComponent<SteeringManager>().TurnOn("OffsetPursue");
@@ -120,16 +120,21 @@ public class IceManChaseSceneTwo : State {
 			}
 		}
 
-		if (director.timePassed > 51.5f) {
+		if (director.timePassed > 51.0f) {
 		
-			director.mig.GetComponent<SteeringManager>().leader = director.maverick;
-			director.mig.GetComponent<SteeringManager> ().offset = new Vector3(100,-100,0);
+			director.mig.GetComponent<SteeringManager>().TurnAllOff();
 
 			Component[] l = director.mig.GetComponentsInChildren<Renderer>();
 
 			foreach( Renderer r in l){
 				r.enabled = false;
 			}
+		}
+
+		if (director.timePassed > 53.5f) {
+
+			director.maverick.GetComponent<SteeringManager>().TurnAllOff();
+			director.maverick.GetComponent<SteeringManager>().TurnOn("FlyStraight");
 
 			director.nextScene();
 		}

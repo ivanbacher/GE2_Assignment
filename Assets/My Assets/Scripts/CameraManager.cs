@@ -35,6 +35,21 @@ public class CameraManager : MonoBehaviour {
 			cam.enabled = false;
 		}
 	}
+
+	public void EnableCam(string whichOne){
+
+		disableAll ();
+
+		if (whichOne == "maverickFront") {
+			maverickFrontCamera.enabled = true;
+		}
+		if (whichOne == "maverickRear") {
+			maverickRearCamera.enabled = true;
+		}
+		if (whichOne == "maverickWing") {
+			maverickWingCamera.enabled = true;
+		}
+	}
 	
 	// Update is called once per frame
 	void Update () {
