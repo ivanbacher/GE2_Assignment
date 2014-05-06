@@ -209,7 +209,7 @@ public class IceOne : State {
 
 		if (passed == 14) {
 			
-			if (director.timePassed >= 48.0f) {
+			if (director.timePassed >= 47.7f) {
 				
 				ice.GetComponent<SteeringManager> ().TurnAllOff();
 				ice.GetComponent<SteeringManager> ().TurnOn("FlyStraight");
@@ -237,7 +237,7 @@ public class IceOne : State {
 
 		if (passed == 16) {
 
-			if (director.timePassed >= 52.0f) {
+			if (director.timePassed >= 51.6f) {
 	
 					Component[] l = mig.GetComponentsInChildren<Renderer> ();
 	

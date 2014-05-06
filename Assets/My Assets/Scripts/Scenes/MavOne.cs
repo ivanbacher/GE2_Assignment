@@ -176,7 +176,8 @@ public class MavOne : State {
 		if (passed == 10) {
 			
 			if (director.timePassed >= 99.4f) {
-				
+
+				director.cameraManager.EnableCam("maverickFront");
 				mav.GetComponent<SteeringManager> ().maxForce = 20;
 				mav.GetComponent<SteeringManager> ().maxSpeed = 20;
 				
@@ -188,10 +189,8 @@ public class MavOne : State {
 			
 			if (director.timePassed >= 99.8f) {
 
-				mav.GetComponent<SteeringManager> ().maxForce = 180;
-				mav.GetComponent<SteeringManager> ().maxSpeed = 180;
-
-				director.cameraManager.EnableCam("maverickFront");
+				mav.GetComponent<SteeringManager> ().maxForce = 170;
+				mav.GetComponent<SteeringManager> ().maxSpeed = 170;
 
 				mav.GetComponent<SteeringManager> ().TurnAllOff();
 				mav.GetComponent<SteeringManager> ().leader = director.mig;
@@ -203,8 +202,8 @@ public class MavOne : State {
 
 		if (passed == 12) {
 			
-			if (director.timePassed >= 100.8f) {
-				
+			if (director.timePassed >= 102.0f) {
+				director.cameraManager.EnableCam("followerOne");
 				passed++;
 			}
 		}
@@ -213,7 +212,7 @@ public class MavOne : State {
 			
 			if (director.timePassed >= 105.0f) {
 
-				director.cameraManager.EnableCam("followerOne");
+
 
 				mav.GetComponent<SteeringManager> ().TurnAllOff();
 				mav.GetComponent<SteeringManager> ().offset = new Vector3(-30, 30, 0);
@@ -226,7 +225,7 @@ public class MavOne : State {
 
 		if (passed == 14) {
 			
-			if (director.timePassed >= 109.5f) {
+			if (director.timePassed >= 109.0f) {
 				
 				director.maverick.GetComponent<SteeringManager>().TurnAllOff();
 				director.maverick.GetComponent<SteeringManager>().TurnOn("FlyStraight");
