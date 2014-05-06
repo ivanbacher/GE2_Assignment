@@ -30,11 +30,10 @@ public class BankHardRightBehaviour: SteeringBehaviour {
 	}
 	
 	
-	public override Vector3 CalculateForce( ){
+	public override Vector3 CalculateForce(){
 
 		pointOnSphere = Vector3.zero;
-		pointOnSphere.x = 0.8f;
-		pointOnSphere.Normalize();
+		pointOnSphere.y = 1.0f;
 		pointOnSphere *= radius;
 
 		sphere.transform.position = manager.transform.position + (Vector3.forward * dist);
@@ -42,9 +41,9 @@ public class BankHardRightBehaviour: SteeringBehaviour {
 		
 		Vector3 targetPos = sphere.transform.TransformPoint (pointOnSphere);
 		
-		Debug.DrawLine (manager.transform.position, targetPos, Color.red);
-		Debug.DrawLine (manager.transform.position, sphere.transform.position, Color.green);
-		Debug.DrawLine (sphere.transform.position, sphere.transform.position + (sphere.transform.forward * 10), Color.blue);
+		Debug.DrawLine (manager.transform.position, targetPos, Color.yellow);
+		Debug.DrawLine (manager.transform.position, sphere.transform.position, Color.yellow);
+		Debug.DrawLine (sphere.transform.position, sphere.transform.position + (sphere.transform.forward * 10), Color.yellow);
 		
 		return seek.Calc ( targetPos );
 	}

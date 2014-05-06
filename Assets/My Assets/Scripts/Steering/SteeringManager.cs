@@ -19,6 +19,8 @@ public class SteeringManager : MonoBehaviour {
 	public float mass = 1.0f;
 	public float maxSpeed = 200.0f;
 	public float maxForce = 200.0f;
+
+	public float timePassedAvoid = 0.0f;
 	
 	public SteeringManager(){
 
@@ -42,11 +44,12 @@ public class SteeringManager : MonoBehaviour {
 		this.behaviours.Add ( new PursueBehaviour (GetComponent<SteeringManager> ()) );
 		this.behaviours.Add ( new FleeBehaviour (GetComponent<SteeringManager> ()) );
 		this.behaviours.Add ( new EvadeBehaviour (GetComponent<SteeringManager> ()) );
-		this.behaviours.Add ( new AvoidLockOnRightLeftBehaviour (GetComponent<SteeringManager> ()) );
 		this.behaviours.Add ( new ArriveBehaviour (GetComponent<SteeringManager> ()) );
 		this.behaviours.Add ( new OffsetPursueBehaviour (GetComponent<SteeringManager> ()) );
 		this.behaviours.Add ( new FollowBehaviour (GetComponent<SteeringManager> ()) );
-		this.behaviours.Add ( new BankHardRightBehaviour (GetComponent<SteeringManager> ()) );
+		this.behaviours.Add (new TurnRight (GetComponent<SteeringManager> ()));
+		this.behaviours.Add (new TurnLeft (GetComponent<SteeringManager> ()));
+		this.behaviours.Add (new AvoidLockOnRightLeftBehaviour (GetComponent<SteeringManager> ()));
 	}
 
 	void Start () {
@@ -101,6 +104,7 @@ public class SteeringManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		timePassedAvoid += Time.deltaTime;
 
 		float smoothRate;
 		force = Calculate();

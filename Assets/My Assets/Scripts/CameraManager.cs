@@ -13,6 +13,10 @@ public class CameraManager : MonoBehaviour {
 	public Camera maverickRearCamera;
 	public Camera maverickWingCamera;
 
+	public Camera followerOneCam;
+	public Camera followerTwoCam;
+	public Camera followerThreeCam;
+
 	private List<Camera> allCams;
 
 	// Use this for initialization
@@ -24,9 +28,12 @@ public class CameraManager : MonoBehaviour {
 		allCams.Add (maverickFrontCamera);
 		allCams.Add (maverickRearCamera);
 		allCams.Add (maverickWingCamera);
+		allCams.Add (followerOneCam);
+		allCams.Add (followerTwoCam);
+		allCams.Add (followerThreeCam);
 
 		disableAll ();
-		maverickFrontCamera.enabled = true;
+		mainCamera.enabled = true;
 	}
 
 	private void disableAll() {
@@ -40,6 +47,9 @@ public class CameraManager : MonoBehaviour {
 
 		disableAll ();
 
+		if (whichOne == "main") {
+			mainCamera.enabled = true;
+		}
 		if (whichOne == "maverickFront") {
 			maverickFrontCamera.enabled = true;
 		}
@@ -49,34 +59,19 @@ public class CameraManager : MonoBehaviour {
 		if (whichOne == "maverickWing") {
 			maverickWingCamera.enabled = true;
 		}
+		if (whichOne == "followerOne") {
+			followerOneCam.enabled = true;
+		}
+		if (whichOne == "followerTwo") {
+			followerTwoCam.enabled = true;
+		}
+		if (whichOne == "followerThree") {
+			followerThreeCam.enabled = true;
+		}
 	}
 	
 	// Update is called once per frame
 	void Update () {
-
-		if (Input.GetKeyDown ("1")) {
-
-			disableAll();
-			mainCamera.enabled = true;
-		}
-
-		if (Input.GetKeyDown ("2")) {
-
-			disableAll();
-			maverickFrontCamera.enabled = true;
-		}
-
-		if (Input.GetKeyDown ("3")) {
-
-			disableAll();
-			maverickRearCamera.enabled = true;
-		}
-
-		if (Input.GetKeyDown ("4")) {
-
-			disableAll();
-			maverickWingCamera.enabled = true;
-		}
 
 	}
 }

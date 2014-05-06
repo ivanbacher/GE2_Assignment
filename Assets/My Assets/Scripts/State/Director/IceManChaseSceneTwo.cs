@@ -78,7 +78,7 @@ public class IceManChaseSceneTwo : State {
 			if(passed == 3){
 
 				GameObject blablablba = new GameObject ();
-				blablablba.transform.position = director.iceman.transform.position + (director.iceman.transform.forward * 800);
+				blablablba.transform.position = director.iceman.transform.position + (director.iceman.transform.forward * 1000);
 				GameObject.Destroy(blablablba, 20.0f);
 
 				director.maverick.GetComponent<MiLauncher>().ShootMissile(blablablba);

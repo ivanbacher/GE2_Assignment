@@ -13,11 +13,11 @@ public class MiLauncher : MonoBehaviour {
 	public void ShootMissile( GameObject target ) {
 
 		Vector3 miPos = transform.root.position + (transform.root.forward * 10);
-		miPos.y -= 15;
 
 		GameObject shot = GameObject.Instantiate( missile, miPos, transform.root.rotation) as GameObject;
-		shot.GetComponent<SteeringManager> ().maxForce = 400;
-		shot.GetComponent<SteeringManager> ().maxSpeed = 400;
+
+		shot.GetComponent<SteeringManager> ().maxForce = 300;
+		shot.GetComponent<SteeringManager> ().maxSpeed = 300;
 		
 		shot.GetComponent<SteeringManager> ().leader = target;
 		

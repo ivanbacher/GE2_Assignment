@@ -14,7 +14,7 @@ public class MaGun : MonoBehaviour {
 
 		this.shoot = false;
 		this.delta = 0;
-		this.deltaMax = 0.1f;
+		this.deltaMax = 0.05f;
 	}
 	
 	// Update is called once per frame
@@ -26,9 +26,9 @@ public class MaGun : MonoBehaviour {
 
 			if(delta > deltaMax){
 
-				GameObject shot = GameObject.Instantiate( bullet, transform.root.position + (transform.root.forward * 5), transform.root.rotation) as GameObject;
+				GameObject shot = GameObject.Instantiate( bullet, transform.root.position + (transform.root.forward * 15), transform.root.rotation) as GameObject;
 
-				shot.rigidbody.AddForce( GetComponent<SteeringManager>().transform.forward * 20000.0f );
+				shot.rigidbody.AddForce( GetComponent<SteeringManager>().transform.forward * 27000.0f );
 				delta = 0.0f;
 			}
 		}

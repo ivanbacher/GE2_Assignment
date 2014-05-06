@@ -5,10 +5,13 @@ public class StateManager : MonoBehaviour {
 
 	State currentState;
 
+	void Awake() {
+		Debug.Log ( "StateManager added to: " + this.name );
+	}
+
 	// Use this for initialization
 	void Start () {
 
-		Debug.Log ( "StateManager added to: " + this.name );
 	}
 	
 	// Update is called once per frame

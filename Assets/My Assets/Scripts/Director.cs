@@ -5,41 +5,44 @@ using System.Text;
 
 public class Director : MonoBehaviour {
 
-	//these gameobject are passed to the script by the GUI
+	//these are passed to the script by the GUI
 	public GameObject maverick;
 	public GameObject iceman;
 	public GameObject mig;
 
 	public CameraManager cameraManager;
 	public AudioManager audioManager;
-
-	public List<State> scenes;
-	public int index;
+	public StateManager stateManager;
+	//end
 
 	public float timePassed;
-	private bool init = true;
 
-	void Start(){
+	private List<State> scenes;
+	private int index;
+	
+	void Awake() {
 
-		iceman.AddComponent<SteeringManager> ();
-		mig.AddComponent<SteeringManager> ();
-		maverick.AddComponent<SteeringManager> ();
+		this.scenes = new List<State> ();
+		this.scenes.Add (new IceOne(gameObject));
+		this.scenes.Add (new MavOne (gameObject));
 
-		gameObject.AddComponent<StateManager> ();
-
+		this.iceman.AddComponent<SteeringManager> ();
+		this.mig.AddComponent<SteeringManager> ();
+		this.maverick.AddComponent<SteeringManager> ();
 
 		this.timePassed = 0.0f;
 		this.index = 0;
+	}
 
-		this.scenes = new List<State> ();
-		this.scenes.Add (new IceManChaseSceneOne (gameObject));
-		this.scenes.Add (new IceManChaseSceneTwo (gameObject));
-		this.scenes.Add (new FinalScene (gameObject));
+	void Start(){
+
+		stateManager.SwitchState ( scenes[ index ]);
+		audioManager.PlayCurrent ();
 	}
 
 	public void nextScene() {
 		index++;
-		GetComponent<StateManager> ().SwitchState ( scenes[ index ]);
+		stateManager.SwitchState ( scenes[ index ]);
 	}
 
 	// Update is called once per frame
@@ -47,12 +50,5 @@ public class Director : MonoBehaviour {
 
 		timePassed += Time.deltaTime;
 
-		if (timePassed > 0.1f) {
-
-			if( init == true){
-				init = false;
-				gameObject.GetComponent<StateManager> ().SwitchState ( scenes[ index ]);
-			}
-		}
 	}
 }
